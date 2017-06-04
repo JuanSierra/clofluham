@@ -2,9 +2,13 @@
 A project hasmter timetracker version using Hapi, mongodb and Angular 
 
 ## Requirements
-####MongoDB
+### MongoDB
 1.  Install it from [mongodb.org](https://www.mongodb.org/downloads) 
 2.  Run mongod from a command line
+
+## Just implemented
+### Category
+![Adding a category](clofluham/assets/clofluham.gif)
 
 ## Installation
 
