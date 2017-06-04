@@ -8,7 +8,7 @@ A project hasmter timetracker version using Hapi, mongodb and Angular
 
 ## Just implemented
 ### Category
-![Adding a category](clofluham/assets/clofluham.gif)
+![Adding a category](https://github.com/JuanSierra/clofluham/blob/master/assets/clofluham.gif)
 
 ## Installation
 
