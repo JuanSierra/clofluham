@@ -1,6 +1,9 @@
 # Cloud Fluffy Hamster
 A project hasmter timetracker version using Hapi, mongodb and Angular 
 
+## Baselines
+https://txt.fyi/+/01cb0c7e/
+
 ## Requirements
 ### MongoDB
 1.  Install it from [mongodb.org](https://www.mongodb.org/downloads) 
