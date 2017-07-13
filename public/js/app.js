@@ -1,7 +1,7 @@
 angular.module('Hamster', ['ngResource'])
 
 .factory('Category', function($resource){
-	return $resource("http://localhost:3000/api/categories");
+	return $resource("http://localhost:3000/api/categories/:name");
 })
 
 .service('CategoryService', function(Category){
@@ -21,6 +21,13 @@ angular.module('Hamster', ['ngResource'])
 				self.loadCategories();
 				self.selectedCategory = null;
 			});
+		},
+		'removeCategory': function(category){
+			console.log('enter ' + category);
+			Category.remove({name:category.name}).$promise.then(function(){
+				self.loadCategories();
+				self.selectedCategory = null;
+			});
 		}
 	};
 
@@ -33,5 +40,9 @@ angular.module('Hamster', ['ngResource'])
 	$scope.service = CategoryService;
 	$scope.newCategory = function () {
 		CategoryService.saveCategory($scope.service.selectedCategory);
+	};
+	$scope.removeCategory = function(category){
+		console.log('sdsd')
+		CategoryService.removeCategory(category);
 	};
 });
