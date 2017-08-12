@@ -2,7 +2,7 @@
 A project hasmter timetracker version using Hapi, mongodb and Angular 
 
 ## Baselines
-https://txt.fyi/+/01cb0c7e/
+https://txt.fyi/+/d5221c24/
 
 ## Requirements
 ### MongoDB
@@ -26,6 +26,16 @@ npm install
 ```sh
 npm start
 ```
+
+## Milestones
+
+- [X] Create/Delete a category
+- [ ] Create/Delete an activity
+- [ ] Create/Delete an user
+- [ ] Authenticate an user
+- [ ] Log a user's fact
+- [ ] Show current user's fact
+- [ ] Finish current fact
 
 ## License
 This project is licensed under the Apache License version 2.0 - see the [LICENSE](LICENSE) file for details
