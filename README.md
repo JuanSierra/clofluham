@@ -1,5 +1,6 @@
 # Cloud Fluffy Hamster
 A project hasmter timetracker version using Hapi, mongodb and Angular
+
 ![Clofluham Logo](https://github.com/JuanSierra/clofluham/blob/master/assets/clofluham_logo.png)
 
 ## Baselines
