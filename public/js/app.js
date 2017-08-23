@@ -4,6 +4,10 @@ angular.module('Hamster', ['ngResource'])
 	return $resource("http://localhost:3000/api/categories/:name");
 })
 
+.factory('Activity', function($resource){
+	return $resource("http://localhost:3000/api/activities/:activity_id");
+})
+
 .service('CategoryService', function(Category){
 	var self = {
 		'categories' : [],
@@ -45,4 +49,46 @@ angular.module('Hamster', ['ngResource'])
 		console.log('sdsd')
 		CategoryService.removeCategory(category);
 	};
-});
+})
+
+.service('ActivityService', function(Activity){
+	var self = {
+		'activities' : [],
+		'selectedActivity' : null,
+		'loadActivities' : function(){
+			self.categories = [];
+			Activity.get(function(data){
+				angular.forEach(data.activities, function(activity){
+					self.activities.push(new Activity(activity));
+				})
+			});
+		},
+		'saveCategory': function(activity){
+			Activity.save(activity).$promise.then(function(){
+				self.loadActivities();
+				self.selectedActivity = null;
+			});
+		},
+		'removeCategory': function(activity){
+			Activity.remove({name:category.name}).$promise.then(function(){
+				self.loadActivities();
+				self.selectedActivity = null;
+			});
+		}
+	};
+
+	self.loadCategories();
+
+	return self;
+})
+
+.controller('activity', function($scope, ActivityService){
+	$scope.service = ActivityService;
+	$scope.newCategory = function () {
+		ActivityService.saveActivity($scope.service.selectedActivity);
+	};
+	$scope.removeCategory = function(activity){
+		ActivityService.saveActivity(activity);
+	};
+})
+;

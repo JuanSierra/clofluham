@@ -1,12 +1,13 @@
 # Cloud Fluffy Hamster
-A project hasmter timetracker version using Hapi, mongodb and Angular 
+A project hasmter timetracker version using Hapi, mongodb and Angular
+![Clofluham Logo](https://github.com/JuanSierra/clofluham/blob/master/assets/clofluham_logo.png)
 
 ## Baselines
 https://txt.fyi/+/d5221c24/
 
 ## Requirements
 ### MongoDB
-1.  Install it from [mongodb.org](https://www.mongodb.org/downloads) 
+1.  Install it from [mongodb.org](https://www.mongodb.org/downloads)
 2.  Run mongod from a command line
 
 ## Just implemented

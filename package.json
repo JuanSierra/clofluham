@@ -13,9 +13,14 @@
   "license": "Apache-2.0",
   "dependencies": {
     "hapi": "^16.1.1",
-    "mongoose": "^4.10.2"
+    "mongoose": "^4.10.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "http-server": "^0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JuanSierra/clofluham.git"
   }
 }
