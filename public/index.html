@@ -43,43 +43,41 @@
     <div class="row" ng-controller="category">
       <div class="col">
 
-        <form class="form-inline" ng-submit="newCategory()">
-      <label class="sr-only" for="inlineFormInput">Name</label>
-      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category Name" ng-model="service.selectedCategory.name"/>
+      <form class="form-inline" ng-submit="newCategory()">
+        <label class="sr-only" for="inlineFormInput">Name</label>
+        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category Name" ng-model="service.selectedCategory.name"/>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
       </div>
-    <div class="row">
-    <div class="col">
-     <ul class="list-group" ng-repeat="c in service.categories">
-           <li class="list-group-item list-item">{{c.name}}<button class="btn fui-cross remove-btn" ng-click="removeCategory(c)"></button></li>
-     </ul>
-    </div>
-    </div>
+      <div class="row">
+        <div class="col">
+          <ul class="list-group" ng-repeat="c in service.categories">
+            <li class="list-group-item list-item">{{c.name}}<button class="btn fui-cross remove-btn" ng-click="removeCategory(c)"></button></li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="row" ng-controller="activity">
-        <div class="col">
+      <div class="col">
 
-          <form class="form-inline" ng-submit="newActivity()">
-            <label class="sr-only" for="inlineFormInput">Category</label>
-            <select class="form-control select select-primary select-block mbl">
-                <option value="2">Messages</option>
-                <option value="3">My Settings</option>
-                <option value="4">Logout</option>
-            </select>
-            <label class="sr-only" for="inlineFormInput">Name</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Activity Name" ng-model="service.selectedActivity.name"/>
+        <form class="form-inline" ng-submit="newActivity()">
+          <label class="sr-only" for="inlineFormInput">Activity</label>
+          <select class="form-control select select-primary select-block mbl" ng-model="service.selectedActivity.child" ng-init="service.selectedActivity.child=firstCategory">
+            <option ng-repeat="c in service2.categories" value="{{c._id}}">{{c.name}}</option>
+          </select>
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Activity Name" ng-model="service.selectedActivity.name"/>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-          <ul class="list-group" ng-repeat="a in service.activities">
-                <li class="list-group-item list-item">{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
-          </ul>
-        </div>
+        <ul class="list-group" ng-repeat="a in service.activities">
+          <li class="list-group-item list-item"><label class="btn-info img-rounded">&nbsp;{{a.child.name}}&nbsp;</label>&nbsp;&nbsp;{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
+        </ul>
+      </div>
     </div>
 
 
@@ -122,6 +120,7 @@
 
     <script>
       videojs.options.flash.swf = "dist/js/vendors/video-js.swf"
+      $('select').select2();
     </script>
 
 </body></html>

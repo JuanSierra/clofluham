@@ -5,7 +5,7 @@ angular.module('Hamster', ['ngResource'])
 })
 
 .factory('Activity', function($resource){
-	return $resource("http://localhost:3000/api/activities/:activity_id");
+	return $resource("http://localhost:3000/api/activities/:id");
 })
 
 .service('CategoryService', function(Category){
@@ -17,7 +17,7 @@ angular.module('Hamster', ['ngResource'])
 			Category.get(function(data){
 				angular.forEach(data.categories, function(category){
 					self.categories.push(new Category(category));
-				})
+				});
 			});
 		},
 		'saveCategory': function(category){
@@ -27,7 +27,6 @@ angular.module('Hamster', ['ngResource'])
 			});
 		},
 		'removeCategory': function(category){
-			console.log('enter ' + category);
 			Category.remove({name:category.name}).$promise.then(function(){
 				self.loadCategories();
 				self.selectedCategory = null;
@@ -42,11 +41,11 @@ angular.module('Hamster', ['ngResource'])
 
 .controller('category', function($scope, CategoryService){
 	$scope.service = CategoryService;
+
 	$scope.newCategory = function () {
 		CategoryService.saveCategory($scope.service.selectedCategory);
 	};
 	$scope.removeCategory = function(category){
-		console.log('sdsd')
 		CategoryService.removeCategory(category);
 	};
 })
@@ -56,39 +55,41 @@ angular.module('Hamster', ['ngResource'])
 		'activities' : [],
 		'selectedActivity' : null,
 		'loadActivities' : function(){
-			self.categories = [];
+			self.activities = [];
 			Activity.get(function(data){
 				angular.forEach(data.activities, function(activity){
 					self.activities.push(new Activity(activity));
 				})
 			});
 		},
-		'saveCategory': function(activity){
+		'saveActivity': function(activity){
 			Activity.save(activity).$promise.then(function(){
 				self.loadActivities();
 				self.selectedActivity = null;
 			});
 		},
-		'removeCategory': function(activity){
-			Activity.remove({name:category.name}).$promise.then(function(){
+		'removeActivity': function(activity){
+			Activity.remove({id:activity._id}).$promise.then(function(){
 				self.loadActivities();
 				self.selectedActivity = null;
 			});
 		}
 	};
 
-	self.loadCategories();
+	self.loadActivities();
 
 	return self;
 })
 
-.controller('activity', function($scope, ActivityService){
+.controller('activity', function($scope, ActivityService, CategoryService){
 	$scope.service = ActivityService;
-	$scope.newCategory = function () {
+	$scope.service2 = CategoryService;
+	$scope.firstCategory = CategoryService.categories[0];
+
+	$scope.newActivity = function () {
 		ActivityService.saveActivity($scope.service.selectedActivity);
 	};
-	$scope.removeCategory = function(activity){
-		ActivityService.saveActivity(activity);
+	$scope.removeActivity = function(activity){
+		ActivityService.removeActivity(activity);
 	};
-})
-;
+});

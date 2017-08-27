@@ -1,5 +1,7 @@
 'use strict';
 
+const Activity = require('../models/Activity');
+
 module.exports = function(){
   return[
     {
@@ -12,12 +14,12 @@ module.exports = function(){
           }
       },
       handler: function (request, reply) {
-  		Activity.find(function(err, categories){
-  			if(err)
-  				reply(err);
+    		Activity.find({}).populate('child').exec(function(err, activities){
+    			if(err)
+    				reply(err);
 
-  			reply({categories});
-  		});
+    			reply({activities});
+    		});
       }
     },
     {
@@ -30,16 +32,16 @@ module.exports = function(){
             }
         },
         handler: function (request, reply) {
-    		var activity = new Activity();
-    		activity.name = request.payload.name;
-        activity.name = request.payload.category_id;
+      		var activity = new Activity();
+      		activity.name = request.payload.name;
+          activity.child = request.payload.child;
 
-    		Activity.save(function(err){
-    			if(err)
-    				reply(err);
+      		activity.save(function(err){
+      			if(err)
+      				reply(err);
 
-    			reply({message: 'Activity created'});
-    		});
+      			reply({message: 'Activity created'});
+      		});
         }
     },
     {
@@ -53,7 +55,8 @@ module.exports = function(){
         },
         handler: function (request, reply) {
     		var id = request.params.id;
-    		Activity.find({id:id}).remove(function(err){
+
+    		Activity.findById(id).remove(function(err){
     			if(err)
     				reply(err);
 

@@ -53,14 +53,13 @@ module.exports = function(){
             }
         },
         handler: function (request, reply) {
-    		//var category = new Category();
-    		var pName = request.params.name;
-    		Category.find({name:pName}).remove(function(err){
-    			if(err)
-    				reply(err);
-
-    			reply({message: 'Category removed'});
-    		});
+		      var pName = request.params.name;
+          
+		      Category.find({name:pName}).remove(function(err){
+			         if(err)
+				           reply(err);
+               reply({message: 'Category removed'});
+		      });
         }
     }
   ]
