@@ -32,7 +32,7 @@ npm start
 ## Milestones
 
 - [X] Create/Delete a category
-- [ ] Create/Delete an activity
+- [X] Create/Delete an activity
 - [ ] Create/Delete an user
 - [ ] Authenticate an user
 - [ ] Log a user's fact

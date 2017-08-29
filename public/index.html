@@ -30,6 +30,57 @@
   .list-item{
     height: 60px;
   }
+  /*accordion*/
+  .acc-container {
+  width:90%;
+  margin:30px auto 0 auto;
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  -o-border-radius:8px;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.acc-btn {
+  width:100%;
+  margin:0 auto;
+  padding:20px 25px;
+  cursor:pointer;
+  background:#95a5a6;
+  border-bottom:1px solid #7f8c8d;
+}
+
+.acc-content {
+  height:0px;
+  width:100%;
+  margin:0 auto;
+  overflow:hidden;
+  background:#ecf0f1;
+}
+
+.acc-content-inner {
+  padding:30px;
+}
+
+
+.open {
+  height: auto;
+}
+
+h1 {
+  font:700 20px/26px 'Lato', sans-serif;
+  color:#2c3e50;
+}
+
+p {
+  font:400 16px/24px 'Lato', sans-serif;
+  color:#798795;
+}
+
+.selected {
+  color:#ffffff;
+}
+
 	</style>
   </head>
   <body ng-app="Hamster">
@@ -40,47 +91,66 @@
         <h3 class="text-center">Cloud Fluffy Hamster</h3>
       </div>
     </div>
-    <div class="row" ng-controller="category">
-      <div class="col">
 
-      <form class="form-inline" ng-submit="newCategory()">
-        <label class="sr-only" for="inlineFormInput">Name</label>
-        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category Name" ng-model="service.selectedCategory.name"/>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
 
-      </div>
-      <div class="row">
-        <div class="col">
-          <ul class="list-group" ng-repeat="c in service.categories">
-            <li class="list-group-item list-item">{{c.name}}<button class="btn fui-cross remove-btn" ng-click="removeCategory(c)"></button></li>
-          </ul>
+
+
+  <div class="acc-container">
+    <div class="acc-btn"><h1 class="selected">Categories</h1></div>
+    <div class="acc-content open">
+      <div class="acc-content-inner">
+
+        <div class="row" ng-controller="category">
+          <div class="col">
+
+          <form class="form-inline" ng-submit="newCategory()">
+            <label class="sr-only" for="inlineFormInput">Name</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category Name" ng-model="service.selectedCategory.name"/>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              <ul class="list-group" ng-repeat="c in service.categories">
+                <li class="list-group-item list-item">{{c.name}}<button class="btn fui-cross remove-btn" ng-click="removeCategory(c)"></button></li>
+              </ul>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <div class="row" ng-controller="activity">
-      <div class="col">
+    <div class="acc-btn"><h1>Actividades</h1></div>
+    <div class="acc-content">
+      <div class="acc-content-inner">
 
-        <form class="form-inline" ng-submit="newActivity()">
-          <label class="sr-only" for="inlineFormInput">Activity</label>
-          <select class="form-control select select-primary select-block mbl" ng-model="service.selectedActivity.child" ng-init="service.selectedActivity.child=firstCategory">
-            <option ng-repeat="c in service2.categories" value="{{c._id}}">{{c.name}}</option>
-          </select>
-          <label class="sr-only" for="inlineFormInput">Name</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Activity Name" ng-model="service.selectedActivity.name"/>
+        <div class="row" ng-controller="activity">
+          <div class="col">
 
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            <form class="form-inline" ng-submit="newActivity()">
+              <label class="sr-only" for="inlineFormInput">Activities</label>
+              <select class="form-control select select-primary select-block mbl" ng-model="service.selectedActivity.child" ng-init="service.selectedActivity.child=firstCategory">
+                <option ng-repeat="c in service2.categories" value="{{c._id}}">{{c.name}}</option>
+              </select>
+              <label class="sr-only" for="inlineFormInput">Name</label>
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Activity Name" ng-model="service.selectedActivity.name"/>
 
-        <ul class="list-group" ng-repeat="a in service.activities">
-          <li class="list-group-item list-item"><label class="btn-info img-rounded">&nbsp;{{a.child.name}}&nbsp;</label>&nbsp;&nbsp;{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
-        </ul>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <ul class="list-group" ng-repeat="a in service.activities">
+              <li class="list-group-item list-item"><label class="btn-info img-rounded">&nbsp;{{a.child.name}}&nbsp;</label>&nbsp;&nbsp;{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
-
-
+  </div>
 
 		  <!--button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
@@ -121,6 +191,28 @@
     <script>
       videojs.options.flash.swf = "dist/js/vendors/video-js.swf"
       $('select').select2();
+
+      var animTime = 300,
+    clickPolice = false;
+
+$(document).on('touchstart click', '.acc-btn', function(){
+  if(!clickPolice){
+     clickPolice = true;
+
+    var currIndex = $(this).index('.acc-btn'),
+        targetHeight = $('.acc-content-inner').eq(currIndex).outerHeight();
+
+    $('.acc-btn h1').removeClass('selected');
+    $(this).find('h1').addClass('selected');
+
+    $('.acc-content').stop().animate({ height: 0 }, animTime);
+    $('.acc-content').eq(currIndex).stop().animate({ height: targetHeight }, animTime);
+
+    setTimeout(function(){ clickPolice = false; }, animTime);
+  }
+
+});
+
     </script>
 
 </body></html>
