@@ -92,4 +92,8 @@ angular.module('Hamster', ['ngResource'])
 	$scope.removeActivity = function(activity){
 		ActivityService.removeActivity(activity);
 	};
+	$scope.editActivity = function(activity){
+		$scope.toEdit = activity;
+		console.log(activity)
+	};
 });

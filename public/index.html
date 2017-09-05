@@ -124,7 +124,7 @@ p {
       </div>
     </div>
 
-    <div class="acc-btn"><h1>Actividades</h1></div>
+    <div class="acc-btn"><h1>Activities</h1></div>
     <div class="acc-content">
       <div class="acc-content-inner">
 
@@ -143,37 +143,42 @@ p {
             </form>
 
             <ul class="list-group" ng-repeat="a in service.activities">
-              <li class="list-group-item list-item"><label class="btn-info img-rounded">&nbsp;{{a.child.name}}&nbsp;</label>&nbsp;&nbsp;{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
+              <li class="list-group-item list-item" data-toggle="modal" data-target="#myModal" ng-click="editActivity(a)"><label class="btn-info img-rounded">&nbsp;{{a.child.name}}&nbsp;</label>&nbsp;&nbsp;{{a.name}}<button class="btn fui-cross remove-btn" ng-click="removeActivity(a)"></button></li>
             </ul>
           </div>
+
+
+          <div id="myModal" class="modal fade" role="dialog" style=" height: 100%;">
+            <div class="modal-dialog"  style="position: relative;top: 50%;transform: translateY(-50%);">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                  <input id="modalEdit" value="{{toEdit.name}}"></input>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Save</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
+
+
       </div>
     </div>
   </div>
 
-		  <!--button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+		  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div-->
 
 
 	</div>
