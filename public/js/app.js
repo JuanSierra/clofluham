@@ -12,24 +12,31 @@ angular.module('Hamster', ['ngResource'])
 	var self = {
 		'categories' : [],
 		'selectedCategory' : null,
+		'default':null,
 		'loadCategories' : function(){
 			self.categories = [];
 			Category.get(function(data){
 				angular.forEach(data.categories, function(category){
 					self.categories.push(new Category(category));
 				});
+
+				self.default = self.categories[0];
 			});
 		},
 		'saveCategory': function(category){
 			Category.save(category).$promise.then(function(){
 				self.loadCategories();
 				self.selectedCategory = null;
+
+				setTimeout(function(){ redim.call($('.acc-btn')[0]) }, 100);
 			});
 		},
 		'removeCategory': function(category){
 			Category.remove({name:category.name}).$promise.then(function(){
 				self.loadCategories();
 				self.selectedCategory = null;
+
+				setTimeout(function(){ redim.call($('.acc-btn')[0]) }, 100);
 			});
 		}
 	};
@@ -53,27 +60,30 @@ angular.module('Hamster', ['ngResource'])
 .service('ActivityService', function(Activity){
 	var self = {
 		'activities' : [],
-		'selectedActivity' : null,
+		'selectedActivity' : {},
 		'loadActivities' : function(){
-			self.activities = [];
-			Activity.get(function(data){
-				angular.forEach(data.activities, function(activity){
-					self.activities.push(new Activity(activity));
-				})
-			});
-		},
+				self.activities = [];
+				Activity.get(function(data){
+					angular.forEach(data.activities, function(activity){
+						self.activities.push(new Activity(activity));
+					});
+				});
+			},
 		'saveActivity': function(activity){
 			Activity.save(activity).$promise.then(function(){
 				self.loadActivities();
 				self.selectedActivity = null;
+
+				setTimeout(function(){ redim.call($('.acc-btn')[1]) }, 100);
 			});
 		},
 		'removeActivity': function(activity){
-			Activity.remove({id:activity._id}).$promise.then(function(){
-				self.loadActivities();
-				self.selectedActivity = null;
-			});
-		}
+				Activity.remove({id:activity._id}).$promise.then(function(){
+					self.loadActivities();
+
+					setTimeout(function(){ redim.call($('.acc-btn')[1]) }, 100);
+				});
+			}
 	};
 
 	self.loadActivities();
@@ -84,7 +94,6 @@ angular.module('Hamster', ['ngResource'])
 .controller('activity', function($scope, ActivityService, CategoryService){
 	$scope.service = ActivityService;
 	$scope.service2 = CategoryService;
-	$scope.firstCategory = CategoryService.categories[0];
 
 	$scope.newActivity = function () {
 		ActivityService.saveActivity($scope.service.selectedActivity);
@@ -94,6 +103,5 @@ angular.module('Hamster', ['ngResource'])
 	};
 	$scope.editActivity = function(activity){
 		$scope.toEdit = activity;
-		console.log(activity)
 	};
 });

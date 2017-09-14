@@ -133,8 +133,7 @@ p {
 
             <form class="form-inline" ng-submit="newActivity()">
               <label class="sr-only" for="inlineFormInput">Activities</label>
-              <select class="form-control select select-primary select-block mbl" ng-model="service.selectedActivity.child" ng-init="service.selectedActivity.child=firstCategory">
-                <option ng-repeat="c in service2.categories" value="{{c._id}}">{{c.name}}</option>
+              <select class="form-control select select-primary select-block mbl" ng-options="c.name for c in service2.categories track by c._id" ng-model="service.selectedActivity.child"  ng-init="service.selectedActivity.child = service2.categories[0]._id">
               </select>
               <label class="sr-only" for="inlineFormInput">Name</label>
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Activity Name" ng-model="service.selectedActivity.name"/>
@@ -156,7 +155,7 @@ p {
                   <h4 class="modal-title">Modal Header</h4>
                 </div>
                 <div class="modal-body">
-                  <input id="modalEdit" value="{{toEdit.name}}"></input>
+                  <input id="modalEdit" class="form-control" value="{{toEdit.name}}" type="text"></input>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -200,24 +199,24 @@ p {
       var animTime = 300,
     clickPolice = false;
 
-$(document).on('touchstart click', '.acc-btn', function(){
+$(document).on('touchstart click', '.acc-btn', redim);
+
+function redim(){
   if(!clickPolice){
      clickPolice = true;
-
+     //console.log('this ' + $(this).class)
     var currIndex = $(this).index('.acc-btn'),
         targetHeight = $('.acc-content-inner').eq(currIndex).outerHeight();
 
     $('.acc-btn h1').removeClass('selected');
     $(this).find('h1').addClass('selected');
-
+    console.log('ejecutado')
     $('.acc-content').stop().animate({ height: 0 }, animTime);
     $('.acc-content').eq(currIndex).stop().animate({ height: targetHeight }, animTime);
 
     setTimeout(function(){ clickPolice = false; }, animTime);
   }
-
-});
-
+}
     </script>
 
 </body></html>
